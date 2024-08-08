@@ -27,7 +27,7 @@ public class Client {
     public void runClient() {
         try {
             do {
-                System.out.print("Welcome!\nEnter username: ");
+                System.out.print("Enter username: ");
                 this.username = input.nextLine();
                 output.println(this.username);
             } while(this.username.equals(""));

@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 public class ClientCommunicationThread extends Thread {
+    static boolean usernameRegistered = false;
     private Socket socket;
     private BufferedReader input;
 
@@ -20,12 +21,11 @@ public class ClientCommunicationThread extends Thread {
     public void run() {
         try {
             synchronized (this) {
-                System.out.println("Started communication");
                 communicationStatus = true;
                 notifyAll();
             }
 
-            while (true) {
+            while (this.communicationStatus) {
                 String incomingMessage = input.readLine();
 
                 if (incomingMessage == null) {
@@ -49,7 +49,7 @@ public class ClientCommunicationThread extends Thread {
     }
 
     public synchronized void stopCommunication() {
-        communicationStatus = false;
+        this.communicationStatus = false;
     }
 
     public synchronized boolean getCommunicationStatus() {
