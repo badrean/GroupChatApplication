@@ -25,14 +25,15 @@ public class ClientCommunicationThread extends Thread {
                 notifyAll();
             }
 
-            while (communicationStatus) {
-                System.out.println("Iteration in");
+            while (true) {
                 String incomingMessage = input.readLine();
 
                 if (incomingMessage == null) {
                     communicationStatus = false;
                     throw new ServerDownException("Server lost connection");
                 }
+
+                System.out.println(incomingMessage);
             }
         } catch (ServerDownException e) {
             System.out.println("Server is down. Exiting...");

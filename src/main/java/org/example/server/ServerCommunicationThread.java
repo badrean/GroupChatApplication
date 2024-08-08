@@ -28,21 +28,19 @@ public class ServerCommunicationThread extends Thread {
             while(true) {
                 String outStream = input.readLine();
 
-                System.out.println("Server got: " + outStream);
-
                 if (outStream != null && (outStream.toLowerCase().equals("exit") || outStream.toLowerCase().equals("quit"))) {
                     userList.get(username).output.println("Server: Bye " + username + "!");
                     userList.remove(username);
                     break;
                 }
-
+//
                 if (username.equals("")) {
                     username = outStream;
                     System.out.println(username + " registered.");
                     userList.put(username, this);
                     continue;
                 }
-
+//
                 if (outStream.startsWith("/")) {
                     handleUserCommand(outStream.substring(1));
                     continue;
