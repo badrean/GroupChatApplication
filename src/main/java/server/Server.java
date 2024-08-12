@@ -1,4 +1,4 @@
-package org.example.server;
+package server;
 
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -6,9 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Server {
-    private int port = 0;
-    private ServerCommunicationThread communicationThread = null;
-    private Map<String, ServerCommunicationThread> usersMap = null;
+    private int port;
+    private Map<String, ServerCommunicationThread> usersMap;
 
     public Server(int port) {
         this.port = port;
@@ -21,7 +20,7 @@ public class Server {
             System.out.println("Server is running on port " + port);
             while(true) {
                 Socket socket = serverSocket.accept();
-                communicationThread = new ServerCommunicationThread(socket, usersMap);
+                ServerCommunicationThread communicationThread = new ServerCommunicationThread(socket, usersMap);
                 communicationThread.start();
             }
         } catch (Exception e) {
